@@ -44,7 +44,7 @@ public class APIMockTomcat implements AutoCloseable {
 		this.tomcat = new Tomcat();
 		tomcat.setPort(port);
 		org.apache.catalina.Context ctx = tomcat.addContext("/",
-				new File(".").getAbsolutePath());
+			new File(".").getAbsolutePath());
 		Tomcat.addServlet(ctx, "mock", servlet);
 		ctx.addServletMapping("/*", "mock");
 		tomcat.start();

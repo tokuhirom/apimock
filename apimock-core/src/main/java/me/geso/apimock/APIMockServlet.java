@@ -50,7 +50,7 @@ public class APIMockServlet extends HttpServlet {
 				try {
 					Object ret = match.getDestination().run(c);
 					if (ret instanceof WebResponse) {
-						((WebResponse) ret).write(resp);
+						((WebResponse)ret).write(resp);
 					} else {
 						// WebResponse 以外は全部 JSON として jackson でシリアライズしていく
 						resp.setStatus(200);
@@ -62,17 +62,18 @@ public class APIMockServlet extends HttpServlet {
 					}
 				} catch (Exception e) {
 					log.error("Internal server error: {} {} : {} {}",
-							req.getMethod(), req.getPathInfo(), e.getClass().getName(), e.getMessage());
-					e.printStackTrace();;
+						req.getMethod(), req.getPathInfo(), e.getClass().getName(), e.getMessage());
+					e.printStackTrace();
+					;
 
 					resp.setStatus(500);
 					resp.getWriter().write(
-							new StringBuilder()
+						new StringBuilder()
 							.append(e.getClass().getName())
 							.append(" : ")
 							.append(e.getMessage())
 							.toString()
-					);
+						);
 				}
 			} else {
 				log.error("405 method not allowed: {}, {}", req.getMethod(), req.getPathInfo());
