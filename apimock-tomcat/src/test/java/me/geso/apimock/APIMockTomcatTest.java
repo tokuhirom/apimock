@@ -3,10 +3,12 @@ package me.geso.apimock;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
@@ -18,9 +20,7 @@ public class APIMockTomcatTest {
 			mock.get("/", c -> "TOP");
 			mock.start();
 			URI uri = mock.getURI();
-			HttpResponse resp = Request.Get(uri)
-					.execute()
-					.returnResponse();
+			HttpResponse resp = Request.Get(uri).execute().returnResponse();
 			assertEquals(200, resp.getStatusLine().getStatusCode());
 			assertEquals("\"TOP\"", EntityUtils.toString(resp.getEntity()));
 		}
@@ -32,9 +32,7 @@ public class APIMockTomcatTest {
 			mock.get("/", c -> Collections.emptyMap());
 			mock.start();
 			URI uri = mock.getURI();
-			HttpResponse resp = Request.Get(uri)
-					.execute()
-					.returnResponse();
+			HttpResponse resp = Request.Get(uri).execute().returnResponse();
 			assertEquals(200, resp.getStatusLine().getStatusCode());
 			assertEquals("{}", EntityUtils.toString(resp.getEntity()));
 		}
@@ -46,9 +44,7 @@ public class APIMockTomcatTest {
 			mock.get("/", c -> "TOP");
 			mock.start();
 			URI uri = mock.getURI();
-			HttpResponse resp = Request.Post(uri)
-					.execute()
-					.returnResponse();
+			HttpResponse resp = Request.Post(uri).execute().returnResponse();
 			assertEquals(405, resp.getStatusLine().getStatusCode());
 		}
 	}
@@ -59,8 +55,7 @@ public class APIMockTomcatTest {
 			mock.get("/foo", c -> "TOP");
 			mock.start();
 			URI uri = mock.getURI();
-			HttpResponse resp = Request.Post(uri.resolve("/path"))
-					.execute()
+			HttpResponse resp = Request.Post(uri.resolve("/path")).execute()
 					.returnResponse();
 			assertEquals(404, resp.getStatusLine().getStatusCode());
 		}
@@ -72,8 +67,39 @@ public class APIMockTomcatTest {
 			mock.post("/", c -> "TOP");
 			mock.start();
 			URI uri = mock.getURI();
-			HttpResponse resp = Request.Post(uri)
-					.execute()
+			HttpResponse resp = Request.Post(uri).execute().returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+	}
+
+	public static class MyEntity {
+		private String msg;
+
+		public String getMsg() {
+			return this.msg;
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+	}
+
+	@Test
+	public void testReadJson() throws Exception {
+		try (APIMockTomcat mock = new APIMockTomcat()) {
+			mock.post("/", c -> {
+				MyEntity value = c.readJson(MyEntity.class);
+				assertEquals("Cool", value.getMsg());
+				return "OK";
+			});
+			mock.start();
+			URI uri = mock.getURI();
+			HttpResponse resp = Request
+					.Post(uri)
+					.bodyString(
+							"{\"msg\":\"Cool\"}",
+							ContentType.create("applicaiton/json",
+									StandardCharsets.UTF_8)).execute()
 					.returnResponse();
 			assertEquals(200, resp.getStatusLine().getStatusCode());
 		}
