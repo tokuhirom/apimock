@@ -1,5 +1,7 @@
 # apimock
 
+[[![javadoc.io](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core/badge.svg)](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core)
+
 JSON API mock server utilities for Java.
 
 ## MOTIVATION
@@ -24,6 +26,11 @@ I need to write the JSON API mock server fast!
 			assertEquals(200, resp.getStatusLine().getStatusCode());
 			assertEquals("{}", EntityUtils.toString(resp.getEntity()));
 		}
+
+## Javadoc
+
+ * http://javadoc.io/me.geso.apimock/apimock-core
+ * http://javadoc.io/me.geso.apimock/apimock-tomcat
 
 ## LICENSE
 
