@@ -1,6 +1,6 @@
 # apimock
 
-[[![javadoc.io](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core/badge.svg)](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core)
+[![javadoc.io](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core/badge.svg)](https://javadocio-badges.herokuapp.com/me.geso.apimock/apimock-core)
 
 JSON API mock server utilities for Java.
 
