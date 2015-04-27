@@ -12,6 +12,7 @@
 	<modules>
 		<module>apimock-tomcat</module>
 		<module>apimock-core</module>
+		<module>apimock-jetty</module>
 	</modules>
 
 	<scm>
