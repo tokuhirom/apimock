@@ -98,7 +98,7 @@ public class APIMockTomcatTest {
 					.Post(uri)
 					.bodyString(
 							"{\"msg\":\"Cool\"}",
-							ContentType.create("applicaiton/json",
+							ContentType.create("application/json",
 									StandardCharsets.UTF_8)).execute()
 					.returnResponse();
 			assertEquals(200, resp.getStatusLine().getStatusCode());
