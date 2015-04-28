@@ -105,4 +105,44 @@ public class APIMockJettyTest {
 		}
 	}
 
+	@Test
+	public void testUseSamePortTwice() throws Exception {
+		int bindPort;
+		try (APIMockJetty mock = new APIMockJetty()) {
+			mock.post("/", c -> {
+				MyEntity value = c.readJson(MyEntity.class);
+				assertEquals("Cool", value.getMsg());
+				return "OK";
+			});
+			mock.start();
+			URI uri = mock.getURI();
+			bindPort = mock.getPort();
+			HttpResponse resp = Request
+					.Post(uri)
+					.bodyString(
+							"{\"msg\":\"Cool\"}",
+							ContentType.create("application/json",
+									StandardCharsets.UTF_8)).execute()
+					.returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+		try (APIMockJetty mock = new APIMockJetty()) {
+			mock.post("/", c -> {
+				MyEntity value = c.readJson(MyEntity.class);
+				assertEquals("Cool", value.getMsg());
+				return "OK";
+			});
+			mock.start(bindPort);
+			URI uri = mock.getURI();
+			HttpResponse resp = Request
+					.Post(uri)
+					.bodyString(
+							"{\"msg\":\"Cool\"}",
+							ContentType.create("application/json",
+									StandardCharsets.UTF_8)).execute()
+					.returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+	}
+
 }
