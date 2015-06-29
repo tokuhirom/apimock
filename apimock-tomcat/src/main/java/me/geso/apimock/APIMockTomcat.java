@@ -60,6 +60,16 @@ public class APIMockTomcat implements AutoCloseable {
 	 * @throws LifecycleException
 	 */
 	public void start(int port) throws LifecycleException {
+		start(port, "mock");
+	}
+
+	/**
+	 * Start new tomcat server instance with specifying its name.
+	 *
+	 * @param port
+	 * @throws LifecycleException
+	 */
+	public void start(int port, String name) throws LifecycleException {
 		if (this.tomcat != null) {
 			throw new IllegalStateException(
 					"Tomcat is already running.");
@@ -69,8 +79,8 @@ public class APIMockTomcat implements AutoCloseable {
 		tomcat.setPort(port);
 		org.apache.catalina.Context ctx = tomcat.addContext("/",
 			new File(".").getAbsolutePath());
-		Tomcat.addServlet(ctx, "mock", servlet);
-		ctx.addServletMapping("/*", "mock");
+		Tomcat.addServlet(ctx, name, servlet);
+		ctx.addServletMapping("/*", name);
 		tomcat.start();
 	}
 

@@ -105,4 +105,16 @@ public class APIMockTomcatTest {
 		}
 	}
 
+	@Test
+	public void testStartWithName() throws Exception {
+		try (APIMockTomcat mock = new APIMockTomcat()){
+			mock.get("/", c -> "OK");
+			mock.start(0, "mock");
+			URI uri = mock.getURI();
+			HttpResponse resp = Request.Get(uri).execute().returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+			assertEquals("\"OK\"", EntityUtils.toString(resp.getEntity()));
+		}
+	}
+
 }
