@@ -29,8 +29,8 @@ I need to write the JSON API mock server fast!
 
 ## Javadoc
 
- * http://javadoc.io/me.geso.apimock/apimock-core
- * http://javadoc.io/me.geso.apimock/apimock-tomcat
+ * http://javadoc.io/doc/me.geso.apimock/apimock-core
+ * http://javadoc.io/doc/me.geso.apimock/apimock-tomcat
 
 ## LICENSE
 
