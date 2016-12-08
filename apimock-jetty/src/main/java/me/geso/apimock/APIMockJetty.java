@@ -49,6 +49,18 @@ public class APIMockJetty implements AutoCloseable {
 	}
 
 	/**
+	 * Register new request handler for DELETE method.
+	 * {@code mock.delete("/", c -> "TOP");}
+	 * @param path Handler path.
+	 * @param callback Callback handler.
+	 */
+	public APIMockJetty delete(String path, APIMockCallback callback) {
+		log.info("Registering DELETE {}", path);
+		this.servlet.delete(path, callback);
+		return this;
+	}
+
+	/**
 	 * Run tomcat on empty port.
 	 */
 	public void start() throws Exception {

@@ -72,6 +72,17 @@ public class APIMockTomcatTest {
 		}
 	}
 
+	@Test
+	public void testDelete() throws Exception {
+		try (APIMockTomcat mock = new APIMockTomcat()) {
+			mock.delete("/", c -> "TOP");
+			mock.start();
+			URI uri = mock.getURI();
+			HttpResponse resp = Request.Delete(uri).execute().returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+	}
+
 	public static class MyEntity {
 		private String msg;
 
