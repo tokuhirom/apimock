@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,6 +38,10 @@ public class APIMockServlet extends HttpServlet {
 
 	public void post(String path, APIMockCallback callback) {
 		router.post(path, callback);
+	}
+
+	public void delete(String path, APIMockCallback callback) {
+		router.addRoute(path, callback, Collections.singletonList("DELETE"));
 	}
 
 	@Override
