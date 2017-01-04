@@ -49,6 +49,18 @@ public class APIMockJetty implements AutoCloseable {
 	}
 
 	/**
+	 * Register new request handler for PUT method.
+	 * {@code mock.put("/", c -> "TOP");}
+	 * @param path Handler path.
+	 * @param callback Callback handler.
+	 */
+	public APIMockJetty put(String path, APIMockCallback callback) {
+		log.info("Registering PUT {}", path);
+		this.servlet.put(path, callback);
+		return this;
+	}
+
+	/**
 	 * Register new request handler for DELETE method.
 	 * {@code mock.delete("/", c -> "TOP");}
 	 * @param path Handler path.

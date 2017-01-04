@@ -73,6 +73,17 @@ public class APIMockTomcatTest {
 	}
 
 	@Test
+	public void testPut() throws Exception {
+		try (APIMockTomcat mock = new APIMockTomcat()) {
+			mock.put("/", c -> "TOP");
+			mock.start();
+			URI uri = mock.getURI();
+			HttpResponse resp = Request.Put(uri).execute().returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+	}
+
+	@Test
 	public void testDelete() throws Exception {
 		try (APIMockTomcat mock = new APIMockTomcat()) {
 			mock.delete("/", c -> "TOP");

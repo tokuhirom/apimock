@@ -40,6 +40,10 @@ public class APIMockServlet extends HttpServlet {
 		router.post(path, callback);
 	}
 
+	public void put(String path, APIMockCallback callback) {
+		router.addRoute(path, callback, Collections.singletonList("PUT"));
+	}
+
 	public void delete(String path, APIMockCallback callback) {
 		router.addRoute(path, callback, Collections.singletonList("DELETE"));
 	}

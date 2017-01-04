@@ -73,6 +73,17 @@ public class APIMockJettyTest {
 	}
 
 	@Test
+	public void testPut() throws Exception {
+		try (APIMockJetty mock = new APIMockJetty()) {
+			mock.put("/", c -> "TOP");
+			mock.start();
+			URI uri = mock.getURI();
+			HttpResponse resp = Request.Put(uri).execute().returnResponse();
+			assertEquals(200, resp.getStatusLine().getStatusCode());
+		}
+	}
+
+	@Test
 	public void testDelete() throws Exception {
 		try (APIMockJetty mock = new APIMockJetty()) {
 			mock.delete("/", c -> "TOP");
