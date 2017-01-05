@@ -6,7 +6,7 @@
 	<packaging>pom</packaging>
 	<description>parent project for apimock</description>
 	<url>http://github.com/tokuhirom/apimock</url>
-	<version>0.5.1-SNAPSHOT</version>
+	<version>0.6.0</version>
 	<name>apimock :: parent</name>
 
 	<modules>
@@ -19,7 +19,7 @@
 		<url>https://github.com/tokuhirom/apimock/</url>
 		<connection>scm:git:git://github.com/tokuhirom/apimock.git</connection>
 		<developerConnection>scm:git:git@github.com:tokuhirom/apimock.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>apimock-project-0.6.0</tag>
   </scm>
 
 	<developers>
